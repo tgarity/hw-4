@@ -82,17 +82,17 @@ def county_data():
         for row in rows:
             row_dict = dict(row)
             normalized_dict = {
-                'confidence_interval_lower_bound': row_dict['Confidence_Interval_Lower_Bound'],
-                'confidence_interval_upper_bound': row_dict['Confidence_Interval_Upper_Bound'],
+                'confidence_interval_lower_bound': format(float(row_dict['Confidence_Interval_Lower_Bound']) if row_dict['Confidence_Interval_Lower_Bound'] else 0, '.3f'),
+                'confidence_interval_upper_bound': format(float(row_dict['Confidence_Interval_Upper_Bound']) if row_dict['Confidence_Interval_Upper_Bound'] else 0, '.3f'),
                 'county': row_dict['County'],
                 'county_code': row_dict['County_code'],
                 'data_release_year': row_dict['Data_Release_Year'],
-                'denominator': row_dict['Denominator'],
+                'denominator': format(float(row_dict['Denominator']) if row_dict['Denominator'] else 0, '.3f'),
                 'fipscode': row_dict['State_code'] + row_dict['County_code'],
                 'measure_id': row_dict['Measure_id'],
                 'measure_name': row_dict['Measure_name'],
-                'numerator': row_dict['Numerator'],
-                'raw_value': row_dict['Raw_value'],
+                'numerator': format(float(row_dict['Numerator']) if row_dict['Numerator'] else 0, '.3f'),
+                'raw_value': format(float(row_dict['Raw_value']) if row_dict['Raw_value'] else 0, '.3f'),
                 'state': row_dict['State'],
                 'state_code': row_dict['State_code'],
                 'year_span': row_dict['Year_span']
