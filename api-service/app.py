@@ -62,7 +62,7 @@ def county_data():
         # Query to get all health data for counties in the given ZIP code
         # JOINs on county_code, which is 5 digits in zip_county (2 digits for state + 3 for county)
         query = """
-        SELECT h.Raw_value, h.County, h.State
+        SELECT h.*
         FROM health_rankings h
         JOIN zip_county z ON
             CAST(h.State_code AS INTEGER) = CAST(substr(CAST(z.county_code AS TEXT), 1, 2) AS INTEGER)
@@ -77,14 +77,25 @@ def county_data():
         if not rows:
             return jsonify({"error": "No data found"}), 404
 
-        # Convert rows to list of dictionaries and normalize field names
+        # Convert rows to list of dictionaries with all columns
         result = []
         for row in rows:
             row_dict = dict(row)
             normalized_dict = {
-                'raw_value': row_dict['Raw_value'],
+                'confidence_interval_lower_bound': row_dict['Confidence_Interval_Lower_Bound'],
+                'confidence_interval_upper_bound': row_dict['Confidence_Interval_Upper_Bound'],
                 'county': row_dict['County'],
-                'state': row_dict['State']
+                'county_code': row_dict['County_code'],
+                'data_release_year': row_dict['Data_Release_Year'],
+                'denominator': row_dict['Denominator'],
+                'fipscode': row_dict['State_code'] + row_dict['County_code'],
+                'measure_id': row_dict['Measure_id'],
+                'measure_name': row_dict['Measure_name'],
+                'numerator': row_dict['Numerator'],
+                'raw_value': row_dict['Raw_value'],
+                'state': row_dict['State'],
+                'state_code': row_dict['State_code'],
+                'year_span': row_dict['Year_span']
             }
             result.append(normalized_dict)
             

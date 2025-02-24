@@ -74,13 +74,26 @@ class TestCountyDataAPI(unittest.TestCase):
         if len(data) > 0:
             first_record = data[0]
             expected_fields = {
-                'raw_value',
+                'confidence_interval_lower_bound',
+                'confidence_interval_upper_bound',
                 'county',
-                'state'
+                'county_code',
+                'data_release_year',
+                'denominator',
+                'fipscode',
+                'measure_id',
+                'measure_name',
+                'numerator',
+                'raw_value',
+                'state',
+                'state_code',
+                'year_span'
             }
             self.assertTrue(all(field in first_record for field in expected_fields))
             self.assertEqual(first_record['county'], 'Middlesex County')
             self.assertEqual(first_record['state'], 'MA')
+            self.assertEqual(first_record['county_code'], '17')
+            self.assertEqual(first_record['state_code'], '25')
 
 if __name__ == '__main__':
     unittest.main()
