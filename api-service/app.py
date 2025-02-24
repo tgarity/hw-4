@@ -97,4 +97,7 @@ def county_data():
             conn.close()
 
 if __name__ == '__main__':
-    app.run(debug=True, port=9000, host='0.0.0.0')
+    # Only run the development server if running locally
+    import os
+    if os.environ.get('VERCEL_ENV') != 'production':
+        app.run(debug=True, port=9000, host='0.0.0.0')
